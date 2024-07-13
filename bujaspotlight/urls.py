@@ -21,6 +21,7 @@ from buja_spot import views
 
 router = DefaultRouter()
 router.register(r"item", views.ItemView)
+router.register(r"ticket_type", views.TicketTypeView)
 
 
 urlpatterns = [
