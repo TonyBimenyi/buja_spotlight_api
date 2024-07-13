@@ -1,4 +1,16 @@
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
+def validate_tags(value):
+    if not all(tag.strip() for tag in value.split(',')):
+        raise ValidationError(
+            _('Each tag must be non-empty and separated by commas.'),
+            params={'value': value},
+        )
+
+
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Item(models.Model):
@@ -31,6 +43,7 @@ class Event(models.Model):
     TITLE_MAX_LENGTH = 255
     
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     event_time_start = models.DateTimeField()
     event_time_end = models.DateTimeField()
     image = models.ImageField(upload_to='event_images/', max_length=255, null=True, blank=True)
@@ -46,6 +59,7 @@ class Event(models.Model):
     location_lon = models.FloatField()
     ticket_types = models.ManyToManyField(TicketType, through='EventTicketType')
     is_active = models.BooleanField(default=False)
+    tags = models.CharField(max_length=255, validators=[validate_tags], null=True, blank=True)
 
     def __str__(self):
         return (
