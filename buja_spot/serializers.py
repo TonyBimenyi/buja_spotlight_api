@@ -25,3 +25,13 @@ class EventCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = EventCategory
         fields = '__all__'
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = '__all__'
+
+class EventTicketTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventTicketType
+        fields = '__all__'
