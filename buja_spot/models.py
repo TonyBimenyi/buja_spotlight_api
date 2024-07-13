@@ -48,7 +48,18 @@ class Event(models.Model):
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.all
+        return (
+            f"Event("
+            f"Title: {self.title}, "
+            f"Start: {self.event_time_start}, "
+            f"End: {self.event_time_end}, "
+            f"Organizer Name: {self.organizer_name}, "
+            f"Organizer Phone: {self.organizer_phone}, "
+            f"Category: {self.event_category}, "
+            f"Latitude: {self.location_lat}, "
+            f"Longitude: {self.location_lon}"
+            f")"
+        )
     
 class EventTicketType(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
