@@ -24,6 +24,9 @@ class EventCategory(models.Model):
     name = models.CharField(max_length=100)
     event_type = models.ForeignKey(EventType, on_delete=models.CASCADE)
 
+    def __str__(self):
+         return f"{self.id} | {self.name} | {self.event_type}" 
+
 class Event(models.Model):
     TITLE_MAX_LENGTH = 255
     
