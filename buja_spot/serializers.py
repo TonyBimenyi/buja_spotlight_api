@@ -6,4 +6,7 @@ class ItemSerializer(serializers.ModelSerializer):
         model=Item
         fields = '__all__'
 
-c
+class TicketTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TicketType
+        fields = '__all__'
