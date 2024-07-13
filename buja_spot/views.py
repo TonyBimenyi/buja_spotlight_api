@@ -19,24 +19,32 @@ class TicketTypeView(viewsets.ViewSet):
         serializer = TicketTypeSerializer(self.queryset, many = True)
         return Response(serializer.data)
 
-class TicketTypeView(viewsets.ViewSet):
-    queryset = TicketType.objects.all()
+class EventTypeView(viewsets.ViewSet):
+    queryset = EventType.objects.all()
 
     def list(self, request):
-        serializer = TicketTypeSerializer(self.queryset, many = True)
+        serializer = EventTypeSerializer(self.queryset, many = True)
         return Response(serializer.data)
 
-class TicketTypeView(viewsets.ViewSet):
-    queryset = TicketType.objects.all()
+class EventCategoryView(viewsets.ViewSet):
+    queryset = EventCategory.objects.all()
 
     def list(self, request):
-        serializer = TicketTypeSerializer(self.queryset, many = True)
+        serializer = EventCategorySerializer(self.queryset, many = True)
         return Response(serializer.data)
     
 
-class TicketTypeView(viewsets.ViewSet):
-    queryset = TicketType.objects.all()
+class EventView(viewsets.ViewSet):
+    queryset = Event.objects.all()
 
     def list(self, request):
-        serializer = TicketTypeSerializer(self.queryset, many = True)
+        serializer = EventSerializer(self.queryset, many = True)
+        return Response(serializer.data)
+    
+    
+class EventTicketTypeView(viewsets.ViewSet):
+    queryset = EventTicketType.objects.all()
+
+    def list(self, request):
+        serializer = EventTicketTypeSerializer(self.queryset, many = True)
         return Response(serializer.data)
