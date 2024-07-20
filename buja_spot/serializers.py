@@ -1,6 +1,14 @@
-from rest_framework import serializers
-from .models import *
+from datetime import date
+import re
 from django.db.models import fields
+from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth.validators import UnicodeUsernameValidator
+from .models import *
+from django.db import transaction
+from django.contrib.auth.models import Group
+from rest_framework.response import Response
+from django.contrib.auth.models import User
 
 class TokenPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
