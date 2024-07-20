@@ -1,8 +1,49 @@
 from django.shortcuts import render
-from rest_framework import viewsets
-from .models import Item,TicketType,EventType,EventCategory,Event,EventTicketType
-from .serializers import ItemSerializer,TicketTypeSerializer,EventTypeSerializer, EventCategorySerializer, EventCategorySerializer, EventSerializer, EventTicketTypeSerializer
-from rest_framework.response import Response
+from rest_framework import viewsets, mixins
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from django.contrib.auth.models import User
+from rest_framework.views import APIView
+from rest_framework.decorators import action
+from rest_framework import filters
+
+from rest_framework import status
+from django.http import HttpResponse
+
+from .serializers import *
+
+class TokenPairView(TokenObtainPairView):
+    serializer_class = TokenPairSerializer
+
+class RegisterView(APIView):
+    serializer_class = RegisterSerializer
+    permission_classes = AllowAny,
+
+    def post(self, request, format=None):
+        # serializer = RegisterSerializer(data=request)
+
+        first_name = request.data['first_name']
+        last_name = request.data['last_name']
+        password = request.data['password']
+        email = request.data['email']
+
+        user_obj = User(
+            username = email,
+            first_name = first_name,
+            last_name = last_name,
+        )
+        user_obj.set_password(password)
+        user_obj.email = email
+        user_obj.save()
+
+        return Response({'status':'Succes'}, 201)
+
+class GroupView(viewsets.ModelViewSet):
+    serializer_class = GroupSerializer
+    permission_classes = AllowAny
+    queryset = Group.objects.all()
 # Create your views here.
 
 class ItemView(viewsets.ViewSet):
