@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'django_filters',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",  # Your frontend URL
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -161,3 +165,4 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True

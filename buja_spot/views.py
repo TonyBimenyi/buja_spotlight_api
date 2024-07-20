@@ -14,8 +14,11 @@ from django.http import HttpResponse
 
 from .serializers import *
 
-class TokenPairView(TokenObtainPairView):
-    serializer_class = TokenPairSerializer
+# class TokenPairView(TokenObtainPairView):
+#     serializer_class = TokenPairSerializer
+
+class LoginView(APIView):
+    def post(self, request):
 
 class RegisterView(APIView):
     serializer_class = RegisterSerializer

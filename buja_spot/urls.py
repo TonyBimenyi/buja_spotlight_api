@@ -1,13 +1,13 @@
 from django.urls import path, include
-from .views import ItemListCreate, ItemDetail, TicketTypeCreate,  TicketTypeDetail, TokenPairView, TokenRefreshView,RegisterView
+from .views import ItemListCreate, ItemDetail, TicketTypeCreate,  TicketTypeDetail, TokenPairView, TokenRefreshView,RegisterView,LoginView
 from django.db import router
 
 urlpatterns = [
 
     path('', include(router.urls)),
-    path('login/', TokenPairView.as_view()),
-    path('refresh/', TokenRefreshView.as_view()),
-    path('register/', RegisterView.as_view()),
+    path('login/', LoginView.as_view(), name='login'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('items/', ItemListCreate.as_view(), name='item-list-create'),
     path('items/<int:pk>/', ItemDetail.as_view(), name='item-detail'),
 
