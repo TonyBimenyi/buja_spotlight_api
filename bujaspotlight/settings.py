@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'buja_spot',
-    'api.apps.ApiConfig',
     'rest_framework.authtoken',
     'corsheaders',
     'django_filters',
@@ -57,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'api.middlewares.DisableCSRF',
+    'buja_spot.middlewares.DisableCSRF',
 ]
 
 ROOT_URLCONF = 'bujaspotlight.urls'
