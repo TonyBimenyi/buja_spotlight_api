@@ -1,17 +1,22 @@
 from django.urls import path, include
-from .views import ItemListCreate, ItemDetail, TicketTypeCreate,  TicketTypeDetail, TokenPairView, TokenRefreshView,RegisterView,LoginView
-from django.db import router
+from rest_framework.routers import DefaultRouter
+from .views import (
+    TokenPairView, TokenRefreshView, RegisterView, ItemView,
+    TicketTypeView, EventTypeView, EventCategoryView, EventView, EventTicketTypeView
+)
+
+router = DefaultRouter()
 
 urlpatterns = [
-
     path('', include(router.urls)),
-    path('login/', LoginView.as_view(), name='login'),
+    path('login/', TokenPairView.as_view(), name='login'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='register'),
-    path('items/', ItemListCreate.as_view(), name='item-list-create'),
-    path('items/<int:pk>/', ItemDetail.as_view(), name='item-detail'),
-
-    path('tickettypes/', TicketTypeCreate.as_view(), name='tickettype-list-create'),
-    path('tickettypes/<int:pk>/', TicketTypeDetail.as_view(), name='tickettype-detail'),
+    path('items/', ItemView.as_view({'get': 'list'}), name='item-list'),
+    path('tickettypes/', TicketTypeView.as_view({'get': 'list'}), name='tickettype-list'),
+    path('eventtypes/', EventTypeView.as_view({'get': 'list'}), name='eventtype-list'),
+    path('eventcategories/', EventCategoryView.as_view({'get': 'list'}), name='eventcategory-list'),
+    path('events/', EventView.as_view({'get': 'list'}), name='event-list'),
+    path('eventtickettypes/', EventTicketTypeView.as_view({'get': 'list'}), name='eventtickettype-list'),
     path('api-auth/', include('rest_framework.urls')),
 ]

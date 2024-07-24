@@ -24,16 +24,27 @@ class TokenPairSerializer(TokenObtainPairSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
     class Meta:
         model = User
-        read_only_fields = 'is_active', 'is_staff',
-        exclude = 'last_login', 'is_staff', 'date_joined', 'user_permission'
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name']
+        extra_kwargs = {'password': {'write_only': True}}
 
-        extra_kwargs = {
-            'username': {
-                'validators': [UnicodeUsernameValidator()]
-            }
-        }
+# class LoginTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     def validate(self, attrs):
+#         data = super().validate(attrs)
+#         data['id'] = self.user.id
+#         data['username'] = self.user.username
+#         data['first_name'] = self.user.first_name
+#         data['last_name'] = self.user.last_name
+#         # data['groups'] = self.user.groups
+#         return data
+        
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
 
 class RegisterSerializer(serializers.Serializer):
     first_name = serializers.CharField(required=True)
